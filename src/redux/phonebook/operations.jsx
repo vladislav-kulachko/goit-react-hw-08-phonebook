@@ -1,9 +1,11 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import {createAsyncThunk, createAction} from '@reduxjs/toolkit';
 import {
   addContactQuery,
   getContactsQuery,
   delContactQuery,
 } from '../../Api/Api';
+
+export const addFilterValue = createAction('phonebook/changeFilter');
 
 export const getContacts = createAsyncThunk(
   'phonebook/getContact',

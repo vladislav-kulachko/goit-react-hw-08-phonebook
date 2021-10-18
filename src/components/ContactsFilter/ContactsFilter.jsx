@@ -1,7 +1,7 @@
-import s from "./ContactFilter.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { addFilterValue } from "../../redux/phonebook/actions";
-import { getFilterValue } from "../../redux/phonebook/selectors";
+import s from './ContactsFilter.module.scss';
+import {useDispatch, useSelector} from 'react-redux';
+import {addFilterValue} from '../../redux/phonebook/operations';
+import {getFilterValue} from '../../redux/phonebook/selectors';
 
 export default function ContactFilter() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function ContactFilter() {
         className={s.input}
         name="find"
         title="Введите имя или название контакта"
-        onChange={(e) => dispatch(addFilterValue(e.target.value))}
+        onChange={e => dispatch(addFilterValue(e.target.value))}
         value={filterValue}
       />
     </label>

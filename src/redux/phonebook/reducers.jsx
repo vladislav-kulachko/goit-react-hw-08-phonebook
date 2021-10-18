@@ -1,8 +1,13 @@
 import {combineReducers} from 'redux';
 import {createReducer} from '@reduxjs/toolkit';
-import {addFilterValue} from './actions';
+// import {addFilterValue} from './actions';
 
-import {delContact, addContact, getContacts} from './operations';
+import {
+  delContact,
+  addContact,
+  getContacts,
+  addFilterValue,
+} from './operations';
 
 // {
 //   contacts: {

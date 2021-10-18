@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import s from './ContactList.module.scss';
+import s from './ContactsList.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {toast, Flip, Bounce} from 'react-toastify';
 import {delContact, getContacts} from '../../redux/phonebook/operations';

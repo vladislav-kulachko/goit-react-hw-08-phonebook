@@ -1,20 +1,29 @@
 import s from './App.module.scss';
-import ContactForm from './components/Form/ContactForm';
-import ContactFilter from './components/Filter/ContactFilter';
-import ContactList from './components/List/ContactList';
+
+import {Route, Switch} from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Navigation from './components/Navigation/Navigation';
+import ContactsViews from './pages/ContactsViewPage/ContactsViewPage';
+import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+
 export default function App() {
   return (
-    <section className={s.container}>
-      <h1 className={s.title}>Phonebook</h1>
-      <ContactForm />
-      <section className={s.contactsSection}>
-        <h2 className={s.titleList}>Contacts list</h2>
-        <ContactFilter />
-        <ContactList />
-      </section>
+    <section className={s.App}>
+      <Navigation></Navigation>
+      <Switch>
+        <Route path="/registration">
+          <RegistrationPage />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/contacts">
+          <ContactsViews />
+        </Route>
+      </Switch>
       <ToastContainer />
     </section>
   );
