@@ -1,6 +1,5 @@
 import {combineReducers} from 'redux';
 import {createReducer} from '@reduxjs/toolkit';
-// import {addFilterValue} from './actions';
 
 import {
   delContact,
@@ -15,7 +14,9 @@ import {
 //     filter: ''
 //   }
 // }
-
+const filter = createReducer('', {
+  [addFilterValue]: (state, {payload}) => payload,
+});
 const items = createReducer([], {
   [getContacts.fulfilled]: (state, {payload}) => payload,
   [addContact.fulfilled]: (state, {payload}) => [...state, payload],
@@ -41,13 +42,11 @@ const error = createReducer(null, {
   [getContacts.rejected]: (state, {payload}) => payload,
   [getContacts.pending]: () => null,
 });
-const filter = createReducer('', {
-  [addFilterValue]: (state, {payload}) => payload,
-});
 
-export const contacts = combineReducers({
+const contactsReduser = combineReducers({
   items: items,
   filter: filter,
   isLoading: isLoading,
   error: error,
 });
+export default contactsReduser;

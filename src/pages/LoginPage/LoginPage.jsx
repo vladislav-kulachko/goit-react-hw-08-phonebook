@@ -1,7 +1,7 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {useState} from 'react';
 import s from './LoginPage.module.scss';
-import {addUser} from '../../redux/auth/auth-operations';
+import {loginUser} from '../../redux/auth/auth-operations';
 import {getError} from '../../redux/auth/auth-selectors';
 import {toast, Flip, Bounce} from 'react-toastify';
 
@@ -12,20 +12,23 @@ export default function LoginPage() {
 
   const dispatch = useDispatch();
 
-  const addOneUser = async (name, email, password) => {
+  const dispatchUser = async (email, password) => {
     try {
-      const addedUser = await dispatch(
-        addUser({name, email, password}),
+      const loggedInUser = await dispatch(
+        loginUser({email, password}),
       ).unwrap();
-      toast.success(`Succsess! Login user with name: "${addedUser.name}"`, {
-        theme: 'colored',
-        position: 'top-center',
-        autoClose: 3000,
-        transition: Bounce,
-        toastId: 7,
-      });
+      toast.success(
+        `Succsess! Logged in user with name: "${loggedInUser.user.name}"`,
+        {
+          theme: 'colored',
+          position: 'top-center',
+          autoClose: 3000,
+          transition: Bounce,
+          toastId: 7,
+        },
+      );
     } catch {
-      toast.error(`Adding user failed with error: ""`, {
+      toast.error(`Login failed: ""`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,
@@ -35,7 +38,7 @@ export default function LoginPage() {
     }
   };
 
-  const handlerUserAdd = e => {
+  const handlerUserLogin = e => {
     switch (e.target.name) {
       case 'email':
         setEmail(e.target.value.trim());
@@ -50,7 +53,7 @@ export default function LoginPage() {
   const handlerSubmitFormClick = e => {
     e.preventDefault();
     if (email !== '' && password !== '') {
-      addOneUser(email, password);
+      dispatchUser(email, password);
       setEmail('');
       setPassword('');
     }
@@ -69,7 +72,7 @@ export default function LoginPage() {
             title="Введите действительный электронный адрес в формате 'имя_пользователя@имя_домена' !"
             required
             value={email}
-            onChange={handlerUserAdd}
+            onChange={handlerUserLogin}
           />
         </label>
         <label className={s.label}>
@@ -82,7 +85,7 @@ export default function LoginPage() {
             title="Поле пароля должно содержать минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем"
             required
             value={password}
-            onChange={handlerUserAdd}
+            onChange={handlerUserLogin}
           />
         </label>
         <button className={s.button} type="submit">

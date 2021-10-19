@@ -13,20 +13,23 @@ export default function RegistrationPage() {
 
   const dispatch = useDispatch();
 
-  const addOneUser = async (name, email, password) => {
+  const dispatchUser = async (name, email, password) => {
     try {
       const addedUser = await dispatch(
         addUser({name, email, password}),
       ).unwrap();
-      toast.success(`Succsess! Added user with name: "${addedUser.name}"`, {
-        theme: 'colored',
-        position: 'top-center',
-        autoClose: 3000,
-        transition: Bounce,
-        toastId: 5,
-      });
+      toast.success(
+        `Succsess! Added user with name: "${addedUser.user.name}"`,
+        {
+          theme: 'colored',
+          position: 'top-center',
+          autoClose: 3000,
+          transition: Bounce,
+          toastId: 5,
+        },
+      );
     } catch {
-      toast.error(`Adding user failed with error: ""`, {
+      toast.error(`Adding user failed: ""`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,
@@ -54,7 +57,7 @@ export default function RegistrationPage() {
   const handlerSubmitFormClick = e => {
     e.preventDefault();
     if (name !== '' && email !== '' && password !== '') {
-      addOneUser(name, email, password);
+      dispatchUser(name, email, password);
       setName('');
       setEmail('');
       setPassword('');
