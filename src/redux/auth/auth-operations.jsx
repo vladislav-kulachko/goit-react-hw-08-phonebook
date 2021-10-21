@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {register, login, logout} from '../../Api/Api';
+import {register, login, logout, getUser} from '../../Api/Api';
 
 export const addUser = createAsyncThunk(
   'auth/register',
@@ -26,6 +26,18 @@ export const logoutUser = createAsyncThunk(
   async (_, {rejectWithValue}) => {
     try {
       await logout();
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  },
+);
+export const getCurrentUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, {getState, rejectWithValue}) => {
+    const state = getState();
+    const token = state.auth.token;
+    try {
+      return await getUser(token);
     } catch (err) {
       return rejectWithValue(err.message);
     }

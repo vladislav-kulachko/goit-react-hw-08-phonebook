@@ -30,9 +30,8 @@ export default function UserMenu() {
   return (
     <div className={s.userBar}>
       <span className={s.greetings}>
-        Welcome!<span className={s.name}>{userName}</span>
+        Welcome, <span className={s.name}>{userName}!</span>
       </span>
-
       <div>
         <img className={s.avatar} src="" alt=""></img>
       </div>

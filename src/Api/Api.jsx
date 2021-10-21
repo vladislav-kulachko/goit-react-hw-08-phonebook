@@ -11,15 +11,19 @@ const token = {
   },
 };
 
-export async function getContactsQuery() {
+export async function getContactsQuery(currToken) {
+  token.set(currToken);
   const {data} = await axios.get('/contacts');
+
   return data;
 }
-export async function addContactQuery(contact) {
+export async function addContactQuery(contact, currToken) {
   const {data} = await axios.post('/contacts', contact);
+  token.set(currToken);
   return data;
 }
-export async function delContactQuery(contactId) {
+export async function delContactQuery(contactId, currToken) {
+  token.set(currToken);
   await axios.delete(`/contacts/${contactId}`);
 }
 export async function register(user) {
@@ -35,5 +39,10 @@ export async function login(user) {
 export async function logout() {
   const {data} = await axios.post('/users/logout');
   token.unset(data.token);
+  return data;
+}
+export async function getUser(currToken) {
+  token.set(currToken);
+  const {data} = await axios.get('/users/current');
   return data;
 }

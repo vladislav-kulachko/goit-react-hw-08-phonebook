@@ -14,7 +14,6 @@ export default function ContactList() {
   const [reload, setReload] = useState(true);
   const filteredContacts = useSelector(getFilteredContacts);
   const loading = useSelector(isLoading);
-  const error = useSelector(getError);
   const dispatch = useDispatch();
 
   const delOneContact = async e => {
@@ -62,7 +61,7 @@ export default function ContactList() {
         }
       }
     })();
-  }, [dispatch, error, reload]);
+  }, [dispatch, reload]);
 
   return (
     <>
