@@ -10,6 +10,7 @@ import ContactsViews from './pages/ContactsViewPage/ContactsViewPage';
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import {getCurrentUser} from './redux/auth/auth-operations';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,9 +27,9 @@ export default function App() {
         <Route path="/login">
           <LoginPage />
         </Route>
-        <Route path="/contacts">
+        <PrivateRoute path="/contacts">
           <ContactsViews />
-        </Route>
+        </PrivateRoute>
       </Switch>
       <ToastContainer />
     </section>
