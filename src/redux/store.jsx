@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import contactsReduser from './phonebook/reducers';
+import contactsReduser from './contacts/contacts-reducers';
 import authReduser from './auth/auth-slice';
 import logger from 'redux-logger';
 import {

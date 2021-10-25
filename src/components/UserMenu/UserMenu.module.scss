@@ -7,7 +7,6 @@
 }
 .name {
   margin-top: 5px;
-  display: block;
   color: rgb(146, 103, 185);
 }
 .button {
@@ -15,12 +14,12 @@
   text-decoration: none;
   color: #fff;
   font-weight: bold;
-  padding: 5px 10px;
-  font-size: 14px;
+  padding: 2px 10px;
+  font-size: 12px;
   border: none;
   border-radius: 3px;
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 1px 0 #666, 0 4px 0 #444, 0 5px 5px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 1px 0 #666, 0 3px 0 #444, 0 4px 4px rgba(0, 0, 0, 0.6);
   background-image: linear-gradient(rgb(87, 91, 94), rgb(178, 187, 194));
   transition: all 0.1s ease;
   &:hover {
@@ -28,8 +27,24 @@
   }
   &:active {
     color: rgb(209, 209, 209);
-    transform: translateY(3px);
-    box-shadow: 0 1px 0 #666, 0 2px 0 #444, 0 2px 2px rgba(0, 0, 0, 0.9);
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #666, 0 1px 0 #444, 0 2px 2px rgba(0, 0, 0, 0.9);
     animation: none;
   }
+}
+@keyframes puls {
+  50% {
+    color: white;
+    text-shadow: 0 -1px 0 #444, 0 0 5px #ffd, 0 0 8px #fff;
+  }
+}
+.avatar {
+  width: 25px;
+  box-shadow: 0 0 5px rgb(123, 130, 197);
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+img {
+  width: 100%;
 }

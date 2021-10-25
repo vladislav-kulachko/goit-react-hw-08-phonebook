@@ -1,8 +1,11 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {useState} from 'react';
 import s from './ContactsAddForm.module.scss';
-import {addContact} from '../../redux/phonebook/operations';
-import {getAllContacts, getError} from '../../redux/phonebook/selectors';
+import {addContact} from '../../redux/contacts/contacts-operations';
+import {
+  getAllContacts,
+  getError,
+} from '../../redux/contacts/contacts-selectors';
 import {toast, Flip, Bounce} from 'react-toastify';
 
 export default function ContactForm() {

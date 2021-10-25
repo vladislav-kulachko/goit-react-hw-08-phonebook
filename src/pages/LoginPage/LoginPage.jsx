@@ -1,14 +1,12 @@
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {useState} from 'react';
 import s from './LoginPage.module.scss';
 import {loginUser} from '../../redux/auth/auth-operations';
-import {getError} from '../../redux/auth/auth-selectors';
 import {toast, Flip, Bounce} from 'react-toastify';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const error = useSelector(getError);
 
   const dispatch = useDispatch();
 
@@ -17,18 +15,15 @@ export default function LoginPage() {
       const loggedInUser = await dispatch(
         loginUser({email, password}),
       ).unwrap();
-      toast.success(
-        `Succsess! Logged in user with name: "${loggedInUser.user.name}"`,
-        {
-          theme: 'colored',
-          position: 'top-center',
-          autoClose: 3000,
-          transition: Bounce,
-          toastId: 7,
-        },
-      );
-    } catch {
-      toast.error(`Login failed: ""`, {
+      toast.success(`Succsess! You logged in, ${loggedInUser.user.name}`, {
+        theme: 'colored',
+        position: 'top-center',
+        autoClose: 3000,
+        transition: Bounce,
+        toastId: 7,
+      });
+    } catch (err) {
+      toast.error(`Login failed: "${err}"`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,

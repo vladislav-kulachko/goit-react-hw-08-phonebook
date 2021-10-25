@@ -1,7 +1,7 @@
 import s from './ContactsFilter.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
-import {addFilterValue} from '../../redux/phonebook/operations';
-import {getFilterValue} from '../../redux/phonebook/selectors';
+import {addFilterValue} from '../../redux/contacts/contacts-operations';
+import {getFilterValue} from '../../redux/contacts/contacts-selectors';
 
 export default function ContactFilter() {
   const dispatch = useDispatch();

@@ -2,12 +2,14 @@ import {useEffect, useState} from 'react';
 import s from './ContactsList.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {toast, Flip, Bounce} from 'react-toastify';
-import {delContact, getContacts} from '../../redux/phonebook/operations';
+import {
+  delContact,
+  getContacts,
+} from '../../redux/contacts/contacts-operations';
 import {
   getFilteredContacts,
-  getError,
   isLoading,
-} from '../../redux/phonebook/selectors';
+} from '../../redux/contacts/contacts-selectors';
 import Spinner from '../Loader/Loader';
 
 export default function ContactList() {

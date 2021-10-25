@@ -3,6 +3,7 @@ import {getUserName, getError} from '../../redux/auth/auth-selectors';
 import {logoutUser} from '../../redux/auth/auth-operations';
 import {toast, Flip, Bounce} from 'react-toastify';
 import s from './UserMenu.module.scss';
+import avatar from '../../img/user.png';
 
 export default function UserMenu() {
   const userName = useSelector(getUserName);
@@ -10,7 +11,7 @@ export default function UserMenu() {
   const handlerLogout = async () => {
     try {
       await dispatch(logoutUser()).unwrap();
-      toast.success(`Succsess! Logout user with name: ""`, {
+      toast.success(`Logout success!`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 3000,
@@ -18,7 +19,7 @@ export default function UserMenu() {
         toastId: 10,
       });
     } catch {
-      toast.error(`Logout user failed with error: ""`, {
+      toast.error(`Logout failed with error: ""`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,
@@ -29,12 +30,12 @@ export default function UserMenu() {
   };
   return (
     <div className={s.userBar}>
+      <div className={s.avatar}>
+        <img src={avatar} alt="avatar_user"></img>
+      </div>
       <span className={s.greetings}>
         Welcome, <span className={s.name}>{userName}!</span>
       </span>
-      <div>
-        <img className={s.avatar} src="" alt=""></img>
-      </div>
       <button className={s.button} type="button" onClick={handlerLogout}>
         Logout
       </button>

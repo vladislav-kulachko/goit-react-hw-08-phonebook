@@ -1,15 +1,13 @@
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {useState} from 'react';
 import s from './RegistrationPage.module.scss';
 import {addUser} from '../../redux/auth/auth-operations';
-import {getError} from '../../redux/auth/auth-selectors';
 import {toast, Flip, Bounce} from 'react-toastify';
 
 export default function RegistrationPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const error = useSelector(getError);
 
   const dispatch = useDispatch();
 
@@ -28,8 +26,8 @@ export default function RegistrationPage() {
           toastId: 5,
         },
       );
-    } catch {
-      toast.error(`Adding user failed: ""`, {
+    } catch (err) {
+      toast.error(`Adding user failed: "${err}"`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,
@@ -74,7 +72,7 @@ export default function RegistrationPage() {
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+            title="Имя может состоять только из букв, апострофа, тире и пробелов."
             required
             value={name}
             onChange={handlerUserAdd}

@@ -2,7 +2,7 @@ import s from './App.module.scss';
 import {useEffect} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Navigation from './components/Navigation/Navigation';
@@ -11,9 +11,10 @@ import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import {getCurrentUser} from './redux/auth/auth-operations';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-
+import PublicRoute from './components/PublicRoute/PublicRoute';
 export default function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getCurrentUser());
   }, [dispatch]);
@@ -21,17 +22,17 @@ export default function App() {
     <section className={s.App}>
       <Navigation></Navigation>
       <Switch>
-        <Route path="/registration">
+        <PublicRoute path="/registration" restricted>
           <RegistrationPage />
-        </Route>
-        <Route path="/login">
+        </PublicRoute>
+        <PublicRoute path="/login" restricted>
           <LoginPage />
-        </Route>
+        </PublicRoute>
         <PrivateRoute path="/contacts">
           <ContactsViews />
         </PrivateRoute>
       </Switch>
-      <ToastContainer />
+      <ToastContainer style={{width: 'inherit'}} />
     </section>
   );
 }

@@ -14,7 +14,6 @@ const token = {
 export async function getContactsQuery(currToken) {
   token.set(currToken);
   const {data} = await axios.get('/contacts');
-
   return data;
 }
 export async function addContactQuery(contact, currToken) {
