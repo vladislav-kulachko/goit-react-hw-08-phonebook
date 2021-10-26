@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {getUserName, getError} from '../../redux/auth/auth-selectors';
+import {getUserName} from '../../redux/auth/auth-selectors';
 import {logoutUser} from '../../redux/auth/auth-operations';
 import {toast, Flip, Bounce} from 'react-toastify';
 import s from './UserMenu.module.scss';
@@ -18,8 +18,8 @@ export default function UserMenu() {
         transition: Bounce,
         toastId: 10,
       });
-    } catch {
-      toast.error(`Logout failed with error: ""`, {
+    } catch (err) {
+      toast.error(`Logout failed with error: "${err}"`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,

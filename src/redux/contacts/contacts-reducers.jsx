@@ -1,12 +1,6 @@
-import {combineReducers} from 'redux';
-import {createReducer, createSlice} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
+import {delContact, addContact, getContacts} from './contacts-operations';
 
-import {
-  delContact,
-  addContact,
-  getContacts,
-  addFilterValue,
-} from './contacts-operations';
 let initialState = {
   items: [],
   filter: '',
@@ -17,7 +11,7 @@ const sliceContacts = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    [addFilterValue](state, {payload}) {
+    addFilterValue(state, {payload}) {
       state.filter = payload;
     },
   },
@@ -41,7 +35,7 @@ const sliceContacts = createSlice({
       state.error = null;
     },
     [addContact.fulfilled](state, {payload}) {
-      state.items = state.items.push(payload);
+      state.items = [...state.items, payload];
       state.isLoading = false;
       state.filter = '';
       state.error = null;
@@ -67,41 +61,5 @@ const sliceContacts = createSlice({
   },
 });
 
+export const {addFilterValue} = sliceContacts.actions;
 export default sliceContacts.reducer;
-
-const filter = createReducer('', {
-  [addFilterValue]: (state, {payload}) => payload,
-});
-const items = createReducer([], {
-  [getContacts.fulfilled]: (state, {payload}) => payload,
-  [addContact.fulfilled]: (state, {payload}) => [...state, payload],
-  [delContact.fulfilled]: (state, {payload}) =>
-    state.filter(contact => contact.id !== payload),
-});
-const isLoading = createReducer(false, {
-  [getContacts.pending]: () => true,
-  [getContacts.fulfilled]: () => false,
-  [getContacts.rejected]: () => false,
-  [addContact.pending]: () => true,
-  [addContact.fulfilled]: () => false,
-  [addContact.rejected]: () => false,
-  [delContact.pending]: () => true,
-  [delContact.fulfilled]: () => false,
-  [delContact.rejected]: () => false,
-});
-const error = createReducer(null, {
-  [addContact.rejected]: (state, {payload}) => payload,
-  [addContact.pending]: () => null,
-  [delContact.rejected]: (state, {payload}) => payload,
-  [delContact.pending]: () => null,
-  [getContacts.rejected]: (state, {payload}) => payload,
-  [getContacts.pending]: () => null,
-});
-
-const contactsReduser = combineReducers({
-  items: items,
-  filter: filter,
-  isLoading: isLoading,
-  error: error,
-});
-// export default contactsReduser;

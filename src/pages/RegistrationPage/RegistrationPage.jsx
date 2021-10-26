@@ -13,19 +13,14 @@ export default function RegistrationPage() {
 
   const dispatchUser = async (name, email, password) => {
     try {
-      const addedUser = await dispatch(
-        addUser({name, email, password}),
-      ).unwrap();
-      toast.success(
-        `Succsess! Added user with name: "${addedUser.user.name}"`,
-        {
-          theme: 'colored',
-          position: 'top-center',
-          autoClose: 3000,
-          transition: Bounce,
-          toastId: 5,
-        },
-      );
+      const result = await dispatch(addUser({name, email, password})).unwrap();
+      toast.success(`Succsess! Added user with name: "${result.user.name}"`, {
+        theme: 'colored',
+        position: 'top-center',
+        autoClose: 3000,
+        transition: Bounce,
+        toastId: 5,
+      });
     } catch (err) {
       toast.error(`Adding user failed: "${err}"`, {
         theme: 'colored',

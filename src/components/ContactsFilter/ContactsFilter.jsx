@@ -1,6 +1,6 @@
 import s from './ContactsFilter.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
-import {addFilterValue} from '../../redux/contacts/contacts-operations';
+import {addFilterValue} from '../../redux/contacts/contacts-reducers';
 import {getFilterValue} from '../../redux/contacts/contacts-selectors';
 
 export default function ContactFilter() {

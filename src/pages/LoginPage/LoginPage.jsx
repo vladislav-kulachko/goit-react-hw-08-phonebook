@@ -3,27 +3,32 @@ import {useState} from 'react';
 import s from './LoginPage.module.scss';
 import {loginUser} from '../../redux/auth/auth-operations';
 import {toast, Flip, Bounce} from 'react-toastify';
+import {useSelector} from 'react-redux';
+import {
+  getUserFetching,
+  getIsLoggedIn,
+  getUserName,
+  getError,
+} from '../../redux/auth/auth-selectors';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const fetchingUser = useSelector(getUserFetching);
   const dispatch = useDispatch();
 
   const dispatchUser = async (email, password) => {
-    try {
-      const loggedInUser = await dispatch(
-        loginUser({email, password}),
-      ).unwrap();
-      toast.success(`Succsess! You logged in, ${loggedInUser.user.name}`, {
+    const result = await dispatch(loginUser({email, password}));
+    if (loginUser.fulfilled.match(result)) {
+      toast.success(`You logged in succsess, ${result.payload.user.name}`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 3000,
         transition: Bounce,
         toastId: 7,
       });
-    } catch (err) {
-      toast.error(`Login failed: "${err}"`, {
+    } else {
+      toast.error(`Login failed: "${result.payload}"`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,
@@ -55,38 +60,40 @@ export default function LoginPage() {
   };
 
   return (
-    <section className={s.container}>
-      <form className={s.form} onSubmit={handlerSubmitFormClick}>
-        <label className={s.label}>
-          Email
-          <input
-            className={s.input}
-            type="email"
-            name="email"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-            title="Введите действительный электронный адрес в формате 'имя_пользователя@имя_домена' !"
-            required
-            value={email}
-            onChange={handlerUserLogin}
-          />
-        </label>
-        <label className={s.label}>
-          Password
-          <input
-            className={s.input}
-            type="password"
-            name="password"
-            pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
-            title="Поле пароля должно содержать минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем"
-            required
-            value={password}
-            onChange={handlerUserLogin}
-          />
-        </label>
-        <button className={s.button} type="submit">
-          Login
-        </button>
-      </form>
-    </section>
+    !fetchingUser && (
+      <section className={s.container}>
+        <form className={s.form} onSubmit={handlerSubmitFormClick}>
+          <label className={s.label}>
+            Email
+            <input
+              className={s.input}
+              type="email"
+              name="email"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              title="Введите действительный электронный адрес в формате 'имя_пользователя@имя_домена' !"
+              required
+              value={email}
+              onChange={handlerUserLogin}
+            />
+          </label>
+          <label className={s.label}>
+            Password
+            <input
+              className={s.input}
+              type="password"
+              name="password"
+              pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
+              title="Поле пароля должно содержать минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем"
+              required
+              value={password}
+              onChange={handlerUserLogin}
+            />
+          </label>
+          <button className={s.button} type="submit">
+            Login
+          </button>
+        </form>
+      </section>
+    )
   );
 }
