@@ -19,16 +19,16 @@ export default function ContactList() {
   const dispatch = useDispatch();
 
   const delOneContact = async e => {
-    try {
-      const deletedContact = await dispatch(delContact(e.target.id)).unwrap();
-      toast.success(`Succsess! Deleted contact with id: "${deletedContact}"`, {
+    const result = await dispatch(delContact(e.target.id));
+    if (delContact.fulfilled.match(result)) {
+      toast.success(`Succsess! Deleted contact with id: "${result.payload}"`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 3000,
         transition: Bounce,
       });
-    } catch (err) {
-      toast.error(`Failed delete with error: "${err}"`, {
+    } else {
+      toast.error(`Failed delete with error: "${result.payload}"`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,
@@ -39,11 +39,11 @@ export default function ContactList() {
   };
 
   useEffect(() => {
-    (async () => {
-      if (reload) {
-        try {
-          await dispatch(getContacts()).unwrap();
-          setReload(false);
+    if (reload) {
+      (async () => {
+        const result = await dispatch(getContacts());
+        setReload(false);
+        if (getContacts.fulfilled.match(result)) {
           toast.success(`Succsess! Downloaded all contacts!`, {
             theme: 'colored',
             position: 'top-center',
@@ -51,25 +51,27 @@ export default function ContactList() {
             transition: Bounce,
             toastId: 2,
           });
-        } catch (err) {
+        } else {
           setReload(false);
-          toast.error(`Failed download contacts with error: ${err}`, {
-            theme: 'colored',
-            position: 'top-center',
-            autoClose: 5000,
-            transition: Flip,
-            toastId: 3,
-          });
+          toast.error(
+            `Failed download contacts with error: ${result.payload}`,
+            {
+              theme: 'colored',
+              position: 'top-center',
+              autoClose: 5000,
+              transition: Flip,
+              toastId: 3,
+            },
+          );
         }
-      }
-    })();
+      })();
+    }
   }, [dispatch, reload]);
 
   return (
     <>
       <ul className={s.list}>
         <Spinner loading={loading} />
-
         {filteredContacts.length === 0 ? (
           <li className={s.notify}>
             Oops, this is empty... Please add your contacts!
@@ -81,7 +83,7 @@ export default function ContactList() {
               <button
                 className={s.button}
                 id={id}
-                type="button"
+                type='button'
                 onClick={delOneContact}
               >
                 Delete

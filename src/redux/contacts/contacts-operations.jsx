@@ -7,11 +7,9 @@ import {
 
 export const getContacts = createAsyncThunk(
   'phonebook/getContact',
-  async (_, {getState, rejectWithValue}) => {
-    const state = getState();
-    const currToken = state.auth.token;
+  async (_, {rejectWithValue}) => {
     try {
-      return await getContactsQuery(currToken);
+      return await getContactsQuery();
     } catch (err) {
       return rejectWithValue(err.message);
     }
@@ -20,11 +18,9 @@ export const getContacts = createAsyncThunk(
 
 export const addContact = createAsyncThunk(
   'phonebook/addContact',
-  async (contact, {getState, rejectWithValue}) => {
-    const state = getState();
-    const currToken = state.auth.token;
+  async (contact, {rejectWithValue}) => {
     try {
-      return await addContactQuery(contact, currToken);
+      return await addContactQuery(contact);
     } catch (err) {
       return rejectWithValue(err.message);
     }
@@ -33,11 +29,9 @@ export const addContact = createAsyncThunk(
 
 export const delContact = createAsyncThunk(
   'phonebook/delContact',
-  async (id, {getState, rejectWithValue}) => {
-    const state = getState();
-    const currToken = state.auth.token;
+  async (id, {rejectWithValue}) => {
     try {
-      await delContactQuery(id, currToken);
+      await delContactQuery(id);
       return id;
     } catch (err) {
       return rejectWithValue(err.message);

@@ -11,18 +11,16 @@ const token = {
   },
 };
 
-export async function getContactsQuery(currToken) {
-  token.set(currToken);
+export async function getContactsQuery() {
   const {data} = await axios.get('/contacts');
   return data;
 }
-export async function addContactQuery(contact, currToken) {
+export async function addContactQuery(contact) {
   const {data} = await axios.post('/contacts', contact);
-  token.set(currToken);
+
   return data;
 }
-export async function delContactQuery(contactId, currToken) {
-  token.set(currToken);
+export async function delContactQuery(contactId) {
   await axios.delete(`/contacts/${contactId}`);
 }
 export async function register(user) {

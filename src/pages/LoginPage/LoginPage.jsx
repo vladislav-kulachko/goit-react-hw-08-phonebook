@@ -4,12 +4,7 @@ import s from './LoginPage.module.scss';
 import {loginUser} from '../../redux/auth/auth-operations';
 import {toast, Flip, Bounce} from 'react-toastify';
 import {useSelector} from 'react-redux';
-import {
-  getUserFetching,
-  getIsLoggedIn,
-  getUserName,
-  getError,
-} from '../../redux/auth/auth-selectors';
+import {getUserFetching} from '../../redux/auth/auth-selectors';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');

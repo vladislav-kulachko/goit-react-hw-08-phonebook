@@ -12,17 +12,20 @@ export default function RegistrationPage() {
   const dispatch = useDispatch();
 
   const dispatchUser = async (name, email, password) => {
-    try {
-      const result = await dispatch(addUser({name, email, password})).unwrap();
-      toast.success(`Succsess! Added user with name: "${result.user.name}"`, {
-        theme: 'colored',
-        position: 'top-center',
-        autoClose: 3000,
-        transition: Bounce,
-        toastId: 5,
-      });
-    } catch (err) {
-      toast.error(`Adding user failed: "${err}"`, {
+    const result = await dispatch(addUser({name, email, password}));
+    if (addUser.fulfilled.match(result)) {
+      toast.success(
+        `Succsess! Added user with name: "${result.payload.user.name}"`,
+        {
+          theme: 'colored',
+          position: 'top-center',
+          autoClose: 3000,
+          transition: Bounce,
+          toastId: 5,
+        },
+      );
+    } else {
+      toast.error(`Adding user failed: "${result.payload}"`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,
@@ -64,10 +67,10 @@ export default function RegistrationPage() {
           Name
           <input
             className={s.input}
-            type="text"
-            name="name"
+            type='text'
+            name='name'
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Имя может состоять только из букв, апострофа, тире и пробелов."
+            title='Имя может состоять только из букв, апострофа, тире и пробелов.'
             required
             value={name}
             onChange={handlerUserAdd}
@@ -77,9 +80,9 @@ export default function RegistrationPage() {
           Email
           <input
             className={s.input}
-            type="email"
-            name="email"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            type='email'
+            name='email'
+            pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'
             title="Введите действительный электронный адрес в формате 'имя_пользователя@имя_домена' !"
             required
             value={email}
@@ -90,16 +93,16 @@ export default function RegistrationPage() {
           Password
           <input
             className={s.input}
-            type="password"
-            name="password"
-            pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
-            title="Поле пароля должно содержать минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем"
+            type='password'
+            name='password'
+            pattern='(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*'
+            title='Поле пароля должно содержать минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем'
             required
             value={password}
             onChange={handlerUserAdd}
           />
         </label>
-        <button className={s.button} type="submit">
+        <button className={s.button} type='submit'>
           Register
         </button>
       </form>
