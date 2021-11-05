@@ -21,12 +21,15 @@ export default function ContactList() {
   const delOneContact = async e => {
     const result = await dispatch(delContact(e.target.id));
     if (delContact.fulfilled.match(result)) {
-      toast.success(`Succsess! Deleted contact with id: "${result.payload}"`, {
-        theme: 'colored',
-        position: 'top-center',
-        autoClose: 3000,
-        transition: Bounce,
-      });
+      toast.success(
+        `Succsess! Deleted contact with name: "${e.target.dataset.name}"`,
+        {
+          theme: 'colored',
+          position: 'top-center',
+          autoClose: 3000,
+          transition: Bounce,
+        },
+      );
     } else {
       toast.error(`Failed delete with error: "${result.payload}"`, {
         theme: 'colored',
@@ -82,6 +85,7 @@ export default function ContactList() {
               {name}:<span className={s.phone}>{number}</span>
               <button
                 className={s.button}
+                data-name={name}
                 id={id}
                 type='button'
                 onClick={delOneContact}
