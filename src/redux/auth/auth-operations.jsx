@@ -1,8 +1,8 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {register, login, logout, getUser} from '../../Api/Api';
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {register, login, logout, getUser} from "../../Api/Api";
 
 export const addUser = createAsyncThunk(
-  'auth/register',
+  "auth/register",
   async (user, {rejectWithValue}) => {
     try {
       return await register(user);
@@ -12,7 +12,7 @@ export const addUser = createAsyncThunk(
   },
 );
 export const loginUser = createAsyncThunk(
-  'auth/login',
+  "auth/login",
   async (user, {rejectWithValue}) => {
     try {
       return await login(user);
@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
   },
 );
 export const logoutUser = createAsyncThunk(
-  'auth/logout',
+  "auth/logout",
   async (_, {rejectWithValue}) => {
     try {
       await logout();
@@ -32,7 +32,7 @@ export const logoutUser = createAsyncThunk(
   },
 );
 export const getCurrentUser = createAsyncThunk(
-  'auth/refresh',
+  "auth/refresh",
   async (_, {getState, rejectWithValue}) => {
     const state = getState();
     const token = state.auth.token;

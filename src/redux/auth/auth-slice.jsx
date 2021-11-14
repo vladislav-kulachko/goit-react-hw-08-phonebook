@@ -1,11 +1,11 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice} from "@reduxjs/toolkit";
 
 import {
   addUser,
   getCurrentUser,
   loginUser,
   logoutUser,
-} from '../auth/auth-operations';
+} from "../auth/auth-operations";
 
 let initialState = {
   user: {name: null, email: null},
@@ -15,7 +15,7 @@ let initialState = {
   fetchingUser: false,
 };
 const sliceAuth = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   extraReducers: {
     [addUser.pending](state, {payload}) {

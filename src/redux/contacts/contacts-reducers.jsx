@@ -1,14 +1,14 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {delContact, addContact, getContacts} from './contacts-operations';
+import {createSlice} from "@reduxjs/toolkit";
+import {delContact, addContact, getContacts} from "./contacts-operations";
 
 let initialState = {
   items: [],
-  filter: '',
+  filter: "",
   isLoading: false,
   error: null,
 };
 const sliceContacts = createSlice({
-  name: 'contacts',
+  name: "contacts",
   initialState,
   reducers: {
     addFilterValue(state, {payload}) {
@@ -23,7 +23,7 @@ const sliceContacts = createSlice({
     [getContacts.fulfilled](state, {payload}) {
       state.items = payload;
       state.isLoading = false;
-      state.filter = '';
+      state.filter = "";
       state.error = null;
     },
     [getContacts.rejected](state, {payload}) {
@@ -37,7 +37,7 @@ const sliceContacts = createSlice({
     [addContact.fulfilled](state, {payload}) {
       state.items = [...state.items, payload];
       state.isLoading = false;
-      state.filter = '';
+      state.filter = "";
       state.error = null;
     },
     [addContact.rejected](state, {payload}) {
@@ -51,7 +51,7 @@ const sliceContacts = createSlice({
     [delContact.fulfilled](state, {payload}) {
       state.items = state.items.filter(contact => contact.id !== payload);
       state.isLoading = false;
-      state.filter = '';
+      state.filter = "";
       state.error = null;
     },
     [delContact.rejected](state, {payload}) {

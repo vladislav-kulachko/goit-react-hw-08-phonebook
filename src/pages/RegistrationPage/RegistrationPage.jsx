@@ -1,13 +1,13 @@
-import {useDispatch} from 'react-redux';
-import {useState} from 'react';
-import s from './RegistrationPage.module.scss';
-import {addUser} from '../../redux/auth/auth-operations';
-import {toast, Flip, Bounce} from 'react-toastify';
+import {useDispatch} from "react-redux";
+import {useState} from "react";
+import s from "./RegistrationPage.module.scss";
+import {addUser} from "../../redux/auth/auth-operations";
+import {toast, Flip, Bounce} from "react-toastify";
 
 export default function RegistrationPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
 
@@ -17,8 +17,8 @@ export default function RegistrationPage() {
       toast.success(
         `Succsess! Added user with name: "${result.payload.user.name}"`,
         {
-          theme: 'colored',
-          position: 'top-center',
+          theme: "colored",
+          position: "top-center",
           autoClose: 3000,
           transition: Bounce,
           toastId: 5,
@@ -26,8 +26,8 @@ export default function RegistrationPage() {
       );
     } else {
       toast.error(`Adding user failed: "${result.payload}"`, {
-        theme: 'colored',
-        position: 'top-center',
+        theme: "colored",
+        position: "top-center",
         autoClose: 5000,
         transition: Flip,
         toastId: 6,
@@ -37,13 +37,13 @@ export default function RegistrationPage() {
 
   const handlerUserAdd = e => {
     switch (e.target.name) {
-      case 'name':
+      case "name":
         setName(e.target.value.trim());
         break;
-      case 'email':
+      case "email":
         setEmail(e.target.value.trim());
         break;
-      case 'password':
+      case "password":
         setPassword(e.target.value.trim());
         break;
       default:
@@ -52,11 +52,11 @@ export default function RegistrationPage() {
   };
   const handlerSubmitFormClick = e => {
     e.preventDefault();
-    if (name !== '' && email !== '' && password !== '') {
+    if (name !== "" && email !== "" && password !== "") {
       dispatchUser(name, email, password);
-      setName('');
-      setEmail('');
-      setPassword('');
+      setName("");
+      setEmail("");
+      setPassword("");
     }
   };
 
@@ -67,10 +67,10 @@ export default function RegistrationPage() {
           Name
           <input
             className={s.input}
-            type='text'
-            name='name'
+            type="text"
+            name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title='Имя может состоять только из букв, апострофа, тире и пробелов.'
+            title="Имя может состоять только из букв, апострофа, тире и пробелов."
             required
             value={name}
             onChange={handlerUserAdd}
@@ -80,9 +80,9 @@ export default function RegistrationPage() {
           Email
           <input
             className={s.input}
-            type='email'
-            name='email'
-            pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'
+            type="email"
+            name="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             title="Введите действительный электронный адрес в формате 'имя_пользователя@имя_домена' !"
             required
             value={email}
@@ -93,16 +93,16 @@ export default function RegistrationPage() {
           Password
           <input
             className={s.input}
-            type='password'
-            name='password'
-            pattern='(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*'
-            title='Поле пароля должно содержать минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем'
+            type="password"
+            name="password"
+            pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
+            title="Поле пароля должно содержать минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем"
             required
             value={password}
             onChange={handlerUserAdd}
           />
         </label>
-        <button className={s.button} type='submit'>
+        <button className={s.button} type="submit">
           Register
         </button>
       </form>

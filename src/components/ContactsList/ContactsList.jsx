@@ -1,16 +1,16 @@
-import {useEffect, useState} from 'react';
-import s from './ContactsList.module.scss';
-import {useDispatch, useSelector} from 'react-redux';
-import {toast, Flip, Bounce} from 'react-toastify';
+import {useEffect, useState} from "react";
+import s from "./ContactsList.module.scss";
+import {useDispatch, useSelector} from "react-redux";
+import {toast, Flip, Bounce} from "react-toastify";
 import {
   delContact,
   getContacts,
-} from '../../redux/contacts/contacts-operations';
+} from "../../redux/contacts/contacts-operations";
 import {
   getFilteredContacts,
   isLoading,
-} from '../../redux/contacts/contacts-selectors';
-import Spinner from '../Loader/Loader';
+} from "../../redux/contacts/contacts-selectors";
+import Spinner from "../Loader/Loader";
 
 export default function ContactList() {
   const [reload, setReload] = useState(true);
@@ -24,16 +24,16 @@ export default function ContactList() {
       toast.success(
         `Succsess! Deleted contact with name: "${e.target.dataset.name}"`,
         {
-          theme: 'colored',
-          position: 'top-center',
+          theme: "colored",
+          position: "top-center",
           autoClose: 3000,
           transition: Bounce,
         },
       );
     } else {
       toast.error(`Failed delete with error: "${result.payload}"`, {
-        theme: 'colored',
-        position: 'top-center',
+        theme: "colored",
+        position: "top-center",
         autoClose: 5000,
         transition: Flip,
         toastId: 1,
@@ -45,22 +45,20 @@ export default function ContactList() {
     if (reload) {
       (async () => {
         const result = await dispatch(getContacts());
-        setReload(false);
         if (getContacts.fulfilled.match(result)) {
           toast.success(`Succsess! Downloaded all contacts!`, {
-            theme: 'colored',
-            position: 'top-center',
+            theme: "colored",
+            position: "top-center",
             autoClose: 3000,
             transition: Bounce,
             toastId: 2,
           });
         } else {
-          setReload(false);
           toast.error(
             `Failed download contacts with error: ${result.payload}`,
             {
-              theme: 'colored',
-              position: 'top-center',
+              theme: "colored",
+              position: "top-center",
               autoClose: 5000,
               transition: Flip,
               toastId: 3,
@@ -68,6 +66,7 @@ export default function ContactList() {
           );
         }
       })();
+      setReload(false);
     }
   }, [dispatch, reload]);
 
@@ -87,7 +86,7 @@ export default function ContactList() {
                 className={s.button}
                 data-name={name}
                 id={id}
-                type='button'
+                type="button"
                 onClick={delOneContact}
               >
                 Delete

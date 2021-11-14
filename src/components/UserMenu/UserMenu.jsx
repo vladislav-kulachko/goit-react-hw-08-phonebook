@@ -1,9 +1,9 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {getUserName} from '../../redux/auth/auth-selectors';
-import {logoutUser} from '../../redux/auth/auth-operations';
-import {toast, Flip, Bounce} from 'react-toastify';
-import s from './UserMenu.module.scss';
-import avatar from '../../img/user.png';
+import {useDispatch, useSelector} from "react-redux";
+import {getUserName} from "../../redux/auth/auth-selectors";
+import {logoutUser} from "../../redux/auth/auth-operations";
+import {toast, Flip, Bounce} from "react-toastify";
+import s from "./UserMenu.module.scss";
+import avatar from "../../img/user.png";
 
 export default function UserMenu() {
   const userName = useSelector(getUserName);
@@ -12,16 +12,16 @@ export default function UserMenu() {
     try {
       await dispatch(logoutUser()).unwrap();
       toast.success(`Logout success!`, {
-        theme: 'colored',
-        position: 'top-center',
+        theme: "colored",
+        position: "top-center",
         autoClose: 3000,
         transition: Bounce,
         toastId: 10,
       });
     } catch (err) {
       toast.error(`Logout failed with error: "${err}"`, {
-        theme: 'colored',
-        position: 'top-center',
+        theme: "colored",
+        position: "top-center",
         autoClose: 5000,
         transition: Flip,
         toastId: 11,

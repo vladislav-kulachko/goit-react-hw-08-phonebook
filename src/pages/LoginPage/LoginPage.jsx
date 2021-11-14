@@ -1,14 +1,14 @@
-import {useDispatch} from 'react-redux';
-import {useState} from 'react';
-import s from './LoginPage.module.scss';
-import {loginUser} from '../../redux/auth/auth-operations';
-import {toast, Flip, Bounce} from 'react-toastify';
-import {useSelector} from 'react-redux';
-import {getUserFetching} from '../../redux/auth/auth-selectors';
+import {useDispatch} from "react-redux";
+import {useState} from "react";
+import s from "./LoginPage.module.scss";
+import {loginUser} from "../../redux/auth/auth-operations";
+import {toast, Flip, Bounce} from "react-toastify";
+import {useSelector} from "react-redux";
+import {getUserFetching} from "../../redux/auth/auth-selectors";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const fetchingUser = useSelector(getUserFetching);
   const dispatch = useDispatch();
 
@@ -16,16 +16,16 @@ export default function LoginPage() {
     const result = await dispatch(loginUser({email, password}));
     if (loginUser.fulfilled.match(result)) {
       toast.success(`You logged in succsess, ${result.payload.user.name}`, {
-        theme: 'colored',
-        position: 'top-center',
+        theme: "colored",
+        position: "top-center",
         autoClose: 3000,
         transition: Bounce,
         toastId: 7,
       });
     } else {
       toast.error(`Login failed: "${result.payload}"`, {
-        theme: 'colored',
-        position: 'top-center',
+        theme: "colored",
+        position: "top-center",
         autoClose: 5000,
         transition: Flip,
         toastId: 8,
@@ -35,10 +35,10 @@ export default function LoginPage() {
 
   const handlerUserLogin = e => {
     switch (e.target.name) {
-      case 'email':
+      case "email":
         setEmail(e.target.value.trim());
         break;
-      case 'password':
+      case "password":
         setPassword(e.target.value.trim());
         break;
       default:
@@ -47,10 +47,10 @@ export default function LoginPage() {
   };
   const handlerSubmitFormClick = e => {
     e.preventDefault();
-    if (email !== '' && password !== '') {
+    if (email !== "" && password !== "") {
       dispatchUser(email, password);
-      setEmail('');
-      setPassword('');
+      setEmail("");
+      setPassword("");
     }
   };
 
