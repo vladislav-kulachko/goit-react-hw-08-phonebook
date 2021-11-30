@@ -64,7 +64,6 @@ export default function LoginPage() {
               className={s.input}
               type="email"
               name="email"
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               title="Введите действительный электронный адрес в формате 'имя_пользователя@имя_домена' !"
               required
               value={email}
@@ -77,8 +76,7 @@ export default function LoginPage() {
               className={s.input}
               type="password"
               name="password"
-              pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
-              title="Поле пароля должно содержать минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем"
+              title="Введите пароль"
               required
               value={password}
               onChange={handlerUserLogin}
